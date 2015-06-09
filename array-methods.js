@@ -10,10 +10,11 @@ var dataset = require('./dataset.json');
 //   return element.amount > 10000;
 // };
 
-// var hundredThousandairs = null;
-var hundredThousandairs = dataset.bankBalances.filter(function(element){
- return element.amount > 100000.00;
-});
+function step1(element){
+  return element.amount > 100000.00;
+}
+
+var hundredThousandairs = dataset.bankBalances.filter(step1);
 
 /*
   set a new key for each object in bankBalances named `rounded`
@@ -27,16 +28,13 @@ var hundredThousandairs = dataset.bankBalances.filter(function(element){
   assign the resulting array to `roundedDollar`
 */
 
+function step2(element){
+  return {amount : element.amount,
+          state: element.state,
+          rounded : Math.round(element.amount)};
+}
 
-// function roundAmount(element){
-//   element.rounded = Math.round(element.amount);
-// }
-
-var roundedDollar = dataset.bankBalances.map(function(element){
-    element.rounded = Math.round(element.amount);
- //  console.log(element);
-  return {amount : element.amount, state: element.state, rounded : element.rounded};
-});
+var roundedDollar = dataset.bankBalances.map(step2);
 
 /*
   set a the `amount` value for each object in bankBalances
@@ -49,14 +47,36 @@ var roundedDollar = dataset.bankBalances.map(function(element){
   assign the resulting array to `roundedDime`
 */
 
-var roundedDime = dataset.bankBalances.map(function(element){
-  element.amount = Math.round(element.amount *10) / 10;
-  console.log(element);
-  return {amount : element.amount, state: element.state};
-});
+
+function step3(element){
+
+  return {
+    amount : Math.round(element.amount * 10)/ 10,
+    state : element.state
+  };
+
+}
+
+var roundedDime = dataset.bankBalances.map(step3);
 
 // set sumOfBankBalances to the sum of all amounts in bankBalances
+
+// function sumIncrease(previous, current){
+//   //console.log(previous.amount, current.amount);
+
+//  // return {amount : previous.amount + current.amount};
+//  return previous + current.amount;
+// }
+
+function step4(){
+
+}
+
+
 var sumOfBankBalances = null;
+
+
+
 
 /*
   set sumOfInterests to the sum of the 18.9% interest
