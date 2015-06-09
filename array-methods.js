@@ -135,17 +135,6 @@ var sumOfInterests = dataset.bankBalances.map(filterStep5)
   the result should be rounded to the nearest cent
  */
 
-
-
-
-
-
-
-
-
-
-
-
 var sumOfHighInterests = null;
 
 /*
