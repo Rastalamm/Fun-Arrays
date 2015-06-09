@@ -61,16 +61,12 @@ var roundedDime = dataset.bankBalances.map(step3);
 
 // set sumOfBankBalances to the sum of all amounts in bankBalances
 
-
 function step4(previous, current){
   var result = parseFloat(previous) + parseFloat(current.amount);
   return Math.round(result * 100) / 100;
 }
 
-
 var sumOfBankBalances = dataset.bankBalances.reduce(step4,0);
-
-
 
 
 /*
@@ -85,7 +81,21 @@ var sumOfBankBalances = dataset.bankBalances.reduce(step4,0);
     Delaware
   the result should be rounded to the nearest cent
  */
-var sumOfInterests = null;
+
+function step5A(element){
+  return {
+    amount : element * .189,
+    state : element.state
+  };
+
+}
+
+function step5B(){
+  dataset.bankBalances.map(step5A)
+}
+
+
+var sumOfInterests = dataset.bankBalances.map(step5A);
 
 /*
   set sumOfHighInterests to the sum of the 18.9% interest
