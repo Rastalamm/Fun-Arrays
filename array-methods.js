@@ -61,19 +61,14 @@ var roundedDime = dataset.bankBalances.map(step3);
 
 // set sumOfBankBalances to the sum of all amounts in bankBalances
 
-// function sumIncrease(previous, current){
-//   //console.log(previous.amount, current.amount);
 
-//  // return {amount : previous.amount + current.amount};
-//  return previous + current.amount;
-// }
-
-function step4(){
-
+function step4(previous, current){
+  var result = parseFloat(previous) + parseFloat(current.amount);
+  return Math.round(result * 100) / 100;
 }
 
 
-var sumOfBankBalances = null;
+var sumOfBankBalances = dataset.bankBalances.reduce(step4,0);
 
 
 
