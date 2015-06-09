@@ -135,6 +135,53 @@ var sumOfInterests = dataset.bankBalances.map(filterStep5)
   the result should be rounded to the nearest cent
  */
 
+//Filter out the states first
+
+function filterStep5(element){
+  switch(element.state){
+    case 'WI':
+      return false;
+      break;
+    case 'IL' :
+      return false;
+      break;
+    case 'WY':
+      return false;
+      break;
+    case 'OH':
+      return false;
+      break;
+    case 'GA':
+      return false;
+      break;
+    case 'DE':
+      return false;
+      break;
+    default:
+      return Math.round((parseFloat(element.amount) * (18.9/100)) * 100) / 100;
+  }
+}
+
+
+
+
+
+
+// give all amounts interests
+
+//add up the amounts of the states
+if(prev[prev.next]){
+  prev[next.state] += parseFloat(next.amount);
+} else{
+    prev[next.state] = parseFloat(next.amount);
+  }
+  return prev; },
+
+}, {})
+//
+
+
+
 var sumOfHighInterests = null;
 
 /*
@@ -145,6 +192,10 @@ var sumOfHighInterests = null;
     and the value is the sum of all amounts from that state
       the value must be rounded to the nearest cent
  */
+
+
+
+
 var stateSums = null;
 
 /*
