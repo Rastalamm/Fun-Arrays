@@ -10,9 +10,9 @@ var dataset = require('./dataset.json');
 //   return element.amount > 10000;
 // };
 
-
+// var hundredThousandairs = null;
 var hundredThousandairs = dataset.bankBalances.filter(function(element){
-  return element.amount > 100000.00;
+ return element.amount > 100000.00;
 });
 
 /*
@@ -34,8 +34,8 @@ var hundredThousandairs = dataset.bankBalances.filter(function(element){
 
 var roundedDollar = dataset.bankBalances.map(function(element){
     element.rounded = Math.round(element.amount);
-   //console.log(element);
-  return element;
+ //  console.log(element);
+  return {amount : element.amount, state: element.state, rounded : element.rounded};
 });
 
 /*
@@ -48,7 +48,12 @@ var roundedDollar = dataset.bankBalances.map(function(element){
     }
   assign the resulting array to `roundedDime`
 */
-var roundedDime = null;
+
+var roundedDime = dataset.bankBalances.map(function(element){
+  element.amount = Math.round(element.amount *10) / 10;
+  console.log(element);
+  return {amount : element.amount, state: element.state};
+});
 
 // set sumOfBankBalances to the sum of all amounts in bankBalances
 var sumOfBankBalances = null;
