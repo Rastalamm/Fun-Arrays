@@ -72,7 +72,7 @@ var sumOfBankBalances = dataset.bankBalances.reduce(step4,0);
 /*
   set sumOfInterests to the sum of the 18.9% interest
   for all amounts in bankBalances
-  in each of the following states
+ for only the states below
     Wisconsin
     Illinois
     Wyoming
@@ -82,27 +82,50 @@ var sumOfBankBalances = dataset.bankBalances.reduce(step4,0);
   the result should be rounded to the nearest cent
  */
 
-function step5A(element){
-  return {
-    amount : element * .189,
-    state : element.state
-  };
-
+function filterStep5(element){
+  switch(element.state){
+    case 'WI':
+      return Math.round((parseFloat(element.amount) * (18.9/100)) * 100) / 100;
+      break;
+    case 'IL' :
+      return Math.round((parseFloat(element.amount) * (18.9/100)) * 100) / 100;
+      break;
+    case 'WY':
+      return Math.round((parseFloat(element.amount) * (18.9/100)) * 100) / 100;
+      break;
+    case 'OH':
+      return Math.round((parseFloat(element.amount) * (18.9/100)) * 100) / 100;
+      break;
+    case 'GA':
+      return Math.round((parseFloat(element.amount) * (18.9/100)) * 100) / 100;
+      break;
+    case 'DE':
+      return Math.round((parseFloat(element.amount) * (18.9/100)) * 100) / 100;
+      break;
+    default:
+      return false;
+  }
 }
 
-function step5B(){
-  dataset.bankBalances.map(step5A)
+function filterOutFalse(element){
+  return !!element;
 }
 
+function reduceStep5(previous, current){
+   return Math.round((previous + current) * 100) / 100;
+}
 
-var sumOfInterests = dataset.bankBalances.map(step5A);
+var sumOfInterests = dataset.bankBalances.map(filterStep5)
+                                          .filter(filterOutFalse)
+                                          .reduce(reduceStep5,0);
+
 
 /*
   set sumOfHighInterests to the sum of the 18.9% interest
   for all amounts in bankBalances
   where the amount of the sum of interests in that state is
     greater than 50,000
-  in each of the following states
+  NOT IN BELOW STATES
     Wisconsin
     Illinois
     Wyoming
@@ -111,6 +134,18 @@ var sumOfInterests = dataset.bankBalances.map(step5A);
     Delaware
   the result should be rounded to the nearest cent
  */
+
+
+
+
+
+
+
+
+
+
+
+
 var sumOfHighInterests = null;
 
 /*
