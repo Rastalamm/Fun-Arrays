@@ -224,9 +224,8 @@ var higherStateSums = Object.keys(stateSums)
 })
 
 .reduce(function (previous, state) {
-    console.log(stateSums[state]);
   return previous + stateSums[state];
-}, 0)
+}, 0);
 
 /*
   set areStatesInHigherStateSum to be true if
@@ -240,7 +239,29 @@ var higherStateSums = Object.keys(stateSums)
     Delaware
   false otherwise
  */
-var areStatesInHigherStateSum = null;
+var areStatesInHigherStateSum = Object.keys(stateSums)
+
+.filter( function (state){
+  return ['WI','IL','WY','OH','GA','DE'].indexOf(
+    state ) > -1;
+  })
+
+  .map(function (stateKey) {
+    return {
+      state : stateKey,
+      sumOfState : stateSums[stateKey]
+    };
+  })
+
+  .every(function (stateKey) {
+    if(stateSums[stateKey] > 2550000){
+      return true;
+    }else{
+      return false;
+    }
+  });
+
+//console.log(areStatesInHigherStateSum);
 
 /*
   set anyStatesInHigherStateSum to be true if
@@ -254,7 +275,39 @@ var areStatesInHigherStateSum = null;
     Delaware
   false otherwise
  */
-var anyStatesInHigherStateSum = null;
+var anyStatesInHigherStateSum = Object.keys(stateSums)
+
+  .filter( function (state){
+  return ['WI','IL','WY','OH','GA','DE'].indexOf(
+    state ) > -1;
+  })
+
+  .map(function (stateKey) {
+    console.log(stateSums[stateKey]);
+      return {
+        state : stateKey,
+        sumOfState : stateSums[stateKey]
+      };
+  })
+
+  .some(function (stateKey) {
+    if(stateSums[stateKey] < 2550000){
+      return false;
+    }else{
+      return true;
+    }
+  });
+
+console.log(anyStatesInHigherStateSum);
+
+
+
+
+
+
+
+
+
 
 
 module.exports = {
