@@ -85,23 +85,12 @@ var sumOfBankBalances = dataset.bankBalances.reduce(step4,0);
 function filterStep5(element){
   switch(element.state){
     case 'WI':
-      return Math.round((parseFloat(element.amount) * (18.9/100)) * 100) / 100;
-      break;
     case 'IL' :
-      return Math.round((parseFloat(element.amount) * (18.9/100)) * 100) / 100;
-      break;
     case 'WY':
-      return Math.round((parseFloat(element.amount) * (18.9/100)) * 100) / 100;
-      break;
     case 'OH':
-      return Math.round((parseFloat(element.amount) * (18.9/100)) * 100) / 100;
-      break;
     case 'GA':
-      return Math.round((parseFloat(element.amount) * (18.9/100)) * 100) / 100;
-      break;
     case 'DE':
       return Math.round((parseFloat(element.amount) * (18.9/100)) * 100) / 100;
-      break;
     default:
       return false;
   }
@@ -135,54 +124,53 @@ var sumOfInterests = dataset.bankBalances.map(filterStep5)
   the result should be rounded to the nearest cent
  */
 
-//Filter out the states first
 
-function filterStep5(element){
-  switch(element.state){
-    case 'WI':
-      return false;
-      break;
-    case 'IL' :
-      return false;
-      break;
-    case 'WY':
-      return false;
-      break;
-    case 'OH':
-      return false;
-      break;
-    case 'GA':
-      return false;
-      break;
-    case 'DE':
-      return false;
-      break;
-    default:
-      return Math.round((parseFloat(element.amount) * (18.9/100)) * 100) / 100;
+var stateSums = dataset.bankBalances
+
+.reduce(function(previous, current) {
+
+  //If state key does not exist, create it & set the first amount to 0
+  if( !previous.hasOwnProperty(current.state) ){
+    previous[current.state] = 0;
   }
-}
 
+  //
+  previous[ current.state ] += parseFloat(current.amount);
+  //round down to cents
+  previous[ current.state ] = Math.round( previous[ current.state ] *100) /100;
 
+  return previous;
 
+},{});
 
+// stateSums = Object.keys(stateSums).map(function (current){
+//   return stateSums[state] =
+// })
 
+var sumOfHighInterests = Object.keys(stateSums)
 
-// give all amounts interests
+  .filter(function (state) {
+    return ['WI','IL','WY','OH','GA','DE'].indexOf( state ) === -1;
+  })
+  //convert amounts to only the interest
+  .map(function (stateKey) {
+    return {
+      state : stateKey,
+      interest : Math.round( stateSums[stateKey] * 0.189 *100) /100
+    };
+  })
+  //Return array of objects
+  //only use interest amounts greate than 50,000
+  .filter(function (account){
+    return account.interest > 50000;
+  })
 
-//add up the amounts of the states
-if(prev[prev.next]){
-  prev[next.state] += parseFloat(next.amount);
-} else{
-    prev[next.state] = parseFloat(next.amount);
-  }
-  return prev; },
+  //add all the state interests, return rounded to cent
+  .reduce(function (previous, current) {
+    return Math.round((previous + current.interest) * 100 ) / 100;
+  },0);
 
-}, {})
-//
-
-
-
-var sumOfHighInterests = null;
+console.log(sumOfHighInterests);
 
 /*
   aggregate the sum of bankBalance amounts
@@ -191,12 +179,28 @@ var sumOfHighInterests = null;
     where the key is the two letter state abbreviation
     and the value is the sum of all amounts from that state
       the value must be rounded to the nearest cent
+
  */
 
 
+var stateSums = dataset.bankBalances
 
+.reduce(function(previous, current) {
 
-var stateSums = null;
+  //If state key does not exist, create it & set the first amount to 0
+  if( !previous.hasOwnProperty(current.state) ){
+    previous[current.state] = 0;
+  }
+
+  //
+  previous[ current.state ] += parseFloat(current.amount);
+  //round down to cents
+  previous[ current.state ] = Math.round( previous[ current.state ] *100) /100;
+
+  return previous;
+
+},{})
+
 
 /*
   set lowerSumStates to an array containing
