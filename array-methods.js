@@ -143,9 +143,6 @@ var stateSums = dataset.bankBalances
 
 },{});
 
-// stateSums = Object.keys(stateSums).map(function (current){
-//   return stateSums[state] =
-// })
 
 var sumOfHighInterests = Object.keys(stateSums)
 
@@ -170,7 +167,7 @@ var sumOfHighInterests = Object.keys(stateSums)
     return Math.round((previous + current.interest) * 100 ) / 100;
   },0);
 
-console.log(sumOfHighInterests);
+//console.log(sumOfHighInterests);
 
 /*
   aggregate the sum of bankBalance amounts
@@ -199,7 +196,7 @@ var stateSums = dataset.bankBalances
 
   return previous;
 
-},{})
+},{});
 
 
 /*
@@ -208,7 +205,11 @@ var stateSums = dataset.bankBalances
   where the sum of amounts in the state is
     less than 1,000,000
  */
-var lowerSumStates = null;
+var lowerSumStates = Object.keys(stateSums)
+
+.filter( function (state){
+  return stateSums[state] < 1000000;
+});
 
 /*
   set higherStateSums to be the sum of
@@ -216,7 +217,16 @@ var lowerSumStates = null;
     where the sum of amounts in the state is
       greater than 1,000,000
  */
-var higherStateSums = null;
+var higherStateSums = Object.keys(stateSums)
+
+.filter( function (state){
+  return stateSums[state] > 1000000;
+});
+
+console.log(higherStateSums);
+
+
+
 
 /*
   set areStatesInHigherStateSum to be true if
