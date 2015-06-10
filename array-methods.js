@@ -221,12 +221,12 @@ var higherStateSums = Object.keys(stateSums)
 
 .filter( function (state){
   return stateSums[state] > 1000000;
-});
+})
 
-console.log(higherStateSums);
-
-
-
+.reduce(function (previous, state) {
+    console.log(stateSums[state]);
+  return previous + stateSums[state];
+}, 0)
 
 /*
   set areStatesInHigherStateSum to be true if
